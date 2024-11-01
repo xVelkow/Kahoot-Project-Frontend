@@ -16,6 +16,9 @@ const config: Config = {
           accent: "#3b364c",
         }
       },
+      width: {
+        92: "23rem",
+      }
     },
   },
   plugins: [],
