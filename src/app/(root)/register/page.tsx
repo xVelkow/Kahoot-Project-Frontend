@@ -6,8 +6,8 @@ import { Button } from "@/components/Button";
 import { useReducer } from "react";
 import { registerFormActions, registerFormInitialState, registerFormReducer } from "@/reducers/registerFormReducer";
 import { H1 } from "@/components/H1";
-import axios from "axios";
 import { useRouter } from "next/navigation";
+import axios, { AxiosError } from "axios";
 
 export default function Register() {
 
@@ -74,8 +74,10 @@ export default function Register() {
             await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/user/register`, { email, password });
             dispatch({ type: registerFormActions.RESET_FORM });
             // TODO: router.replace("/login"); // activate this when the login page is ready
-        }catch(err: any){
-            dispatch({ type: registerFormActions.SET_ERROR, field: "email", error: err.response.data.message });
+        }catch(err: unknown){
+            const axiosError = err as AxiosError;
+            const errorMessage = axiosError.response && axiosError.response.data ? (axiosError.response.data as { message: string }).message : "An error occurred";
+            dispatch({ type: registerFormActions.SET_ERROR, field: "email", error: errorMessage });
             isValid = false;
         }
         
