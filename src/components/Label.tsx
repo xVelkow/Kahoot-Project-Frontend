@@ -7,7 +7,7 @@ extends
 LabelHTMLAttributes<HTMLLabelElement>,
 VariantProps<typeof labelVariants>{
     errorMessage?: string;
-}
+};
 
 const labelVariants = cva(
     "text-sm font-light text-primary-light flex items-center gap-x-1",

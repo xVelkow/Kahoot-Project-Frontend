@@ -18,17 +18,22 @@ const buttonVariants = cva(
             size: {
                 default: "px-6 py-2 text-base",
                 sm: "px-4 py-1.5 text-sm",
+            },
+            width: {
+                default: "w-fit",
+                full: "w-full",
             }
         },
         defaultVariants: {
             variant: "default",
-            size: "default"
+            size: "default",
+            width: "default",
         }
     }
 );
 
-const Button = forwardRef<HTMLButtonElement, ButtonProps>(({ className, size, variant, ...props }, ref) => {
-    return <button ref={ref} className={cn(buttonVariants({ variant, size, className }))} {...props} />
+const Button = forwardRef<HTMLButtonElement, ButtonProps>(({ className, size, width, variant, ...props }, ref) => {
+    return <button ref={ref} className={cn(buttonVariants({ variant, size, width, className }))} {...props} />
 });
 
 export { Button, buttonVariants };

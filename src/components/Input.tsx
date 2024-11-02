@@ -5,7 +5,7 @@ import { cn } from "@/utils/cn";
 interface InputProps
 extends
 Omit<InputHTMLAttributes<HTMLInputElement>, 'size'>,
-VariantProps<typeof inputVariants> {}
+VariantProps<typeof inputVariants> {};
 
 const inputVariants = cva(
     "w-full text-neutral-200 text-sm px-5 py-2.5 rounded-md bg-primary-accent outline-none focus:ring-1 focus:ring-primary focus:border-transparent auto-fill-none",
