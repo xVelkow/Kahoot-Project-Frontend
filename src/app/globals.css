@@ -1,3 +1,12 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+	.input-holder{
+		@apply w-full flex flex-col items-start justify-center gap-0.5;
+	}
+	.input-group{
+		@apply flex flex-col md:flex-row items-center justify-start gap-4;
+	}
+}

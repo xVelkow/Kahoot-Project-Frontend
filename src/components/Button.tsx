@@ -16,8 +16,8 @@ const buttonVariants = cva(
                 outline: "bg-white text-primary border border-primary",
             },
             size: {
-                default: "px-6 py-2 text-base font-medium",
-                sm: "px-4 py-1.5 text-sm font-regular",
+                default: "px-6 py-2 text-base",
+                sm: "px-4 py-1.5 text-sm",
             }
         },
         defaultVariants: {
