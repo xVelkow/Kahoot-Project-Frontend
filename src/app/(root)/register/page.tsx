@@ -8,6 +8,7 @@ import { registerFormActions, registerFormInitialState, registerFormReducer } fr
 import { H1 } from "@/components/H1";
 import { useRouter } from "next/navigation";
 import axios, { AxiosError } from "axios";
+import Link from "next/link";
 
 export default function Register() {
 
@@ -18,7 +19,7 @@ export default function Register() {
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         dispatch({ type: registerFormActions.UPDATE_FIELD, field: name, value });
-        if(!value) dispatch({ type: registerFormActions.SET_ERROR, field: name, error: "This field is required." });
+        if(!value) dispatch({ type: registerFormActions.SET_ERROR, field: name, error: "Please fill out this field." });
         else dispatch({ type: registerFormActions.SET_ERROR, field: name, error: "" });
     }
 
@@ -29,32 +30,32 @@ export default function Register() {
         const { fname, lname, email, password, confirmPassword } = state;
 
         if(!fname){
-            dispatch({ type: registerFormActions.SET_ERROR, field: "fname", error: "First name is required." });
+            dispatch({ type: registerFormActions.SET_ERROR, field: "fname", error: "Please enter your first name." });
             isValid = false;
         } else dispatch({ type: registerFormActions.SET_ERROR, field: "fname", error: "" });
 
         if(!lname){
-            dispatch({ type: registerFormActions.SET_ERROR, field: "lname", error: "Last name is required." });
+            dispatch({ type: registerFormActions.SET_ERROR, field: "lname", error: "Please enter your last name." });
             isValid = false;
         } else dispatch({ type: registerFormActions.SET_ERROR, field: "lname", error: "" });
 
         if(!email){
-            dispatch({ type: registerFormActions.SET_ERROR, field: "email", error: "E-Mail is required." });
+            dispatch({ type: registerFormActions.SET_ERROR, field: "email", error: "Please enter your email address." });
             isValid = false;
         } else dispatch({ type: registerFormActions.SET_ERROR, field: "email", error: "" });
 
         if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
-            dispatch({ type: registerFormActions.SET_ERROR, field: "email", error: "Invalid E-Mail address." });
+            dispatch({ type: registerFormActions.SET_ERROR, field: "email", error: "Please enter a valid email address." });
             isValid = false;
         } else dispatch({ type: registerFormActions.SET_ERROR, field: "email", error: "" });
 
         if(!password){
-            dispatch({ type: registerFormActions.SET_ERROR, field: "password", error: "Password is required." });
+            dispatch({ type: registerFormActions.SET_ERROR, field: "password", error: "Please enter your password." });
             isValid = false;
         } else dispatch({ type: registerFormActions.SET_ERROR, field: "password", error: "" });
 
         if(!confirmPassword){
-            dispatch({ type: registerFormActions.SET_ERROR, field: "confirmPassword", error: "Confirm password is required." });
+            dispatch({ type: registerFormActions.SET_ERROR, field: "confirmPassword", error: "Please confirm your password." });
             isValid = false;
         } else dispatch({ type: registerFormActions.SET_ERROR, field: "confirmPassword", error: "" });
 
@@ -73,7 +74,7 @@ export default function Register() {
         try{
             await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/user/register`, { email, password });
             dispatch({ type: registerFormActions.RESET_FORM });
-            // TODO: router.replace("/login"); // activate this when the login page is ready
+            router.replace("/login");
         }catch(err: unknown){
             const axiosError = err as AxiosError;
             const errorMessage = axiosError.response && axiosError.response.data ? (axiosError.response.data as { message: string }).message : "An error occurred";
@@ -86,7 +87,7 @@ export default function Register() {
     return <main className="grid place-items-center h-screen bg-secondary-dark">
         <form onSubmit={handleSubmit} noValidate className="w-fit p-6 md:p-10 flex flex-col justify-center items-start gap-y-8 bg-primary-dark rounded-md">
             <H1 variant="form">Create an account</H1>
-            <p className="text-sm text-primary-light font-light">Already have an account? <span className="text-primary underline font-medium">Log in</span></p>
+            <p className="text-sm text-primary-light font-light">Already have an account? <Link href="/login" className="text-primary underline font-medium">Log in</Link></p>
             <div className="space-y-3 w-full">
                 <div className="input-group w-full">
                     <div className="input-holder w-full">

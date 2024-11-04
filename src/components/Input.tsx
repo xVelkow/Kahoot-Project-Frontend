@@ -17,6 +17,7 @@ const inputVariants = cva(
             },
             size: {
                 default: "md:w-44",
+                md: "md:w-64",
                 lg: "md:w-92",
             }
         },

@@ -8,7 +8,7 @@ HTMLAttributes<HTMLHeadingElement>,
 VariantProps<typeof h1Variants>{};
 
 const h1Variants = cva(
-    "",
+    "cursor-default",
     {
         variants: {
             variant: {
