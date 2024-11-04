@@ -44,14 +44,13 @@ export default function Login(){
         if(!isValid) return;
 
         try{
-            const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/auth/login`, { email, password }, { withCredentials: true, headers: { "Content-Type": "application/json" } });
-            console.log(response);
+            await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/auth/login`, { email, password }, { withCredentials: true, headers: { "Content-Type": "application/json" } });
+            dispatch({ type: loginFormActions.RESET_FORM });
         }catch(err: unknown){
             const axiosError = err as AxiosError;
             const errorMessage = axiosError.response && axiosError.response.data ? (axiosError.response.data as { message: string }).message : "An error occurred.";
             dispatch({ type: loginFormActions.SET_ERROR, field: "email", error: errorMessage });
             dispatch({ type: loginFormActions.SET_ERROR, field: "password", error: errorMessage });
-
         }
     }
 
